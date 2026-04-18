@@ -47,7 +47,6 @@
     </style>
 </head>
 <body>
-
     <div class="phone-frame">
         <div class="bg-curves"></div>
 
@@ -96,11 +95,11 @@
             </div>
             <div class="grid grid-cols-2 gap-4">
                 <div class="glass-panel rounded-2xl p-5 flex flex-col items-center justify-center text-center relative overflow-hidden group">
-                    <span id="driver-tickets" class="text-3xl font-bold text-white mb-1">150</span>
+                    <span class="text-3xl font-bold text-white mb-1">150</span>
                     <span class="text-xs text-emerald-300 uppercase tracking-wider font-medium">Vé đã bán</span>
                 </div>
                 <div class="glass-panel rounded-2xl p-5 flex flex-col items-center justify-center text-center relative overflow-hidden group border-gold-500/30">
-                    <span id="driver-revenue" class="text-3xl font-bold text-gold-400 mb-1">45.00</span>
+                    <span class="text-3xl font-bold text-gold-400 mb-1">45.00</span>
                     <span class="text-xs text-emerald-300 uppercase tracking-wider font-medium">cUSD Doanh thu</span>
                 </div>
             </div>
@@ -119,26 +118,24 @@
             <div class="modal-content glass-panel rounded-3xl p-6 text-center shadow-2xl bg-emerald-500/20 border-emerald-400/30">
                 <h2 class="text-white text-xl font-bold mb-2">Thanh toán thành công!</h2>
                 <p class="text-emerald-200 text-sm mb-6">Đã chuyển 0.3 cUSD về ví nhà xe.</p>
-                <button id="close-modal" class="w-full bg-gray-700/80 hover:bg-gray-600 text-white font-semibold py-3 rounded-xl transition-colors btn-scale">
-                    Đóng
-                </button>
+                <button id="close-modal" class="w-full bg-gray-700/80 hover:bg-gray-600 text-white font-semibold py-3 rounded-xl transition-colors btn-scale">Đóng</button>
             </div>
         </div>
     </div>
 
     <script>
-        // -- LƯU Ý SỐ 1: BẠN PHẢI SỬA ĐỊA CHỈ VÍ CỦA BẠN VÀO ĐÂY --
-        // CHỈ LẤY CHUỖI BẮT ĐẦU BẰNG "0x", KHÔNG ĐƯỢC CHỨA CHỮ TIẾNG VIỆT HAY KÝ TỰ LẠ
-        const COMPANY_WALLET = "0x203520F4ea423548b111103d3Cae2bb179C318C8"; 
+        // BƯỚC DUY NHẤT BẠN CẦN LÀM: Sửa địa chỉ ví bên trong dấu ngoặc kép này.
+        // NHỚ: KHÔNG xóa dấu ngoặc kép (" ")
+        const COMPANY_WALLET = "0xb52640c1983b09B9a164aA2143E1E4f53D988Cf2"; 
 
-        // -- 1. GIAO DIỆN & TAB --
+        // 1. CHUYỂN TAB
         const tabPassenger = document.getElementById('tab-passenger');
         const tabDriver = document.getElementById('tab-driver');
         const navPassenger = document.getElementById('nav-passenger');
         const navDriver = document.getElementById('nav-driver');
         let currentTab = 'passenger';
 
-        function switchTab(tab) {
+        window.switchTab = function(tab) {
             if (currentTab === tab) return;
             if (tab === 'driver') {
                 tabPassenger.className = 'tab-content tab-hidden-left';
@@ -154,7 +151,7 @@
             currentTab = tab;
         }
 
-        // -- 2. CẬP NHẬT TÊN VÀ TIẾN TRÌNH TỰ ĐỘNG --
+        // 2. CẬP NHẬT GIAO DIỆN VÀ VÍ
         let currentRides = 0; 
         const MAX_RIDES = 100;
 
@@ -180,11 +177,10 @@
             }
         }
 
-        // Đợi 1 giây sau khi web load để MiniPay kịp kết nối
-        setTimeout(fetchWalletAddress, 1000);
-        updateProgressRing(currentRides); // Khởi tạo vòng tròn mức 0
+        setTimeout(fetchWalletAddress, 500);
+        updateProgressRing(currentRides);
 
-        // -- 3. LOGIC THANH TOÁN (CÓ BẮT LỖI HIỆN LÊN ĐIỆN THOẠI) --
+        // 3. LOGIC NÚT THANH TOÁN
         const payBtn = document.getElementById('pay-btn');
         const payText = document.getElementById('pay-text');
         const paySpinner = document.getElementById('pay-spinner');
@@ -193,54 +189,39 @@
 
         const cUSD_ADDRESS = "0x765DE816845861e75A25fCA122bb6898B8B1282a";
         const cUSD_ABI = ["function transfer(address to, uint256 value) returns (bool)"];
-        const COMPANY_WALLET = "0xb52640c1983b09B9a164aA2143E1E4f53D988Cf2";
 
         payBtn.addEventListener('click', async () => {
             if (payBtn.disabled) return;
 
-            if (typeof window.ethereum === 'undefined') {
-                alert("⚠️ Lỗi: Không tìm thấy ví Web3. Bạn có chắc đang mở link này TRONG app MiniPay không?");
-                return;
-            }
-
-            if (typeof ethers === 'undefined') {
-                alert("⚠️ Lỗi: Thư viện Ethers.js chưa tải được. Vui lòng tải lại trang.");
+            if (typeof window.ethereum === 'undefined' || typeof ethers === 'undefined') {
+                alert("⚠️ Vui lòng mở link bên trong ví MiniPay!");
                 return;
             }
 
             try {
-                // UI đổi sang Loading
                 payBtn.disabled = true;
                 payBtn.classList.remove('animate-pulse-gold');
                 payBtn.classList.add('scale-95', 'opacity-90');
                 payText.classList.add('hidden');
                 paySpinner.classList.remove('hidden');
 
-                // Gọi MiniPay
                 await window.ethereum.request({ method: 'eth_requestAccounts' });
                 const provider = new ethers.providers.Web3Provider(window.ethereum);
                 const signer = provider.getSigner();
 
-                // Tạo giao dịch
                 const cUSDContract = new ethers.Contract(cUSD_ADDRESS, cUSD_ABI, signer);
                 const amount = ethers.utils.parseUnits("0.3", 18);
 
-                // Nếu COMPANY_WALLET điền sai định dạng, nó sẽ báo lỗi ngay bước này
                 const tx = await cUSDContract.transfer(COMPANY_WALLET, amount);
-
-                // Chờ Celo xác nhận
                 await tx.wait(); 
 
-                // Thành công! Tăng số chuyến xe và hiện Modal
                 currentRides += 1;
                 updateProgressRing(currentRides);
                 paymentModal.classList.add('active');
 
             } catch (error) {
-                // Bắt mọi lỗi và quăng lên màn hình để dễ bắt bệnh
-                alert("Giao dịch thất bại! Lỗi: " + (error.message || error));
+                alert("Giao dịch thất bại! Bạn cần có cUSD làm phí gas, hoặc bạn đã hủy giao dịch.");
             } finally {
-                // Khôi phục nút
                 payBtn.disabled = false;
                 payBtn.classList.add('animate-pulse-gold');
                 payBtn.classList.remove('scale-95', 'opacity-90');
