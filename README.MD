@@ -1,38 +1,41 @@
-# 🚌 BusPay – Trạm vé một chạm 🎫
-> *Lên xe mượt mà, tài xế thảnh thơi.*
-> **Dự án Mini App tham gia sự kiện MiniPay | Celo Community Mixer — HCMC** 🇻🇳
+# 🚌 BusPay – One-tap Ticket Station 🎫
+
+*[English](README.md) | [Tiếng Việt](README_vi.md)*
+
+> *Smooth rides for passengers, effortless for drivers.*
+> **Mini App Project for MiniPay | Celo Community Mixer — HCMC** 🇻🇳
 
 ---
 
-## 💡 Nguồn cảm hứng (The Pain Point)
-Dự án này không nằm trên giấy mà bắt nguồn từ chính câu chuyện gia đình tôi: Ba mẹ tôi làm nghề lái xe và tiếp viên soát vé xe bus. 
+## 💡 Inspiration (The Pain Point)
+This project isn't just theoretical; it stems directly from my family's story: my parents work as bus drivers and ticket collectors.
 
-* 😩 **Nỗi vất vả:** Hàng ngày, sau những ca làm mệt nhoài, ba mẹ vẫn phải cặm cụi đếm từng tờ tiền lẻ, đối chiếu số vé cứng và nộp lại cho công ty. Việc này cực kỳ tốn thời gian và luôn chực chờ rủi ro tính sai hoặc rơi rớt.
-* 🛑 **Thực trạng:** Dù đã có máy POS, hành khách vẫn phải loay hoay tìm tiền lẻ hoặc thẻ cứng. Quy trình đối soát cuối ngày của công ty vẫn là một bài toán cồng kềnh.
+*   😩 **The Hardship:** Every day, after exhausting shifts, my parents still had to painstakingly count small change, reconcile physical tickets, and submit them to the company. This was extremely time-consuming and always carried the risk of miscalculation or loss.
+*   🛑 **The Reality:** Even with POS machines, passengers often struggled to find small change or physical cards. The company's end-of-day reconciliation process remained cumbersome.
 
-## 🚀 Giải pháp cốt lõi (The Solution)
-**BusPay** là một Mini App được thiết kế chạy trực tiếp trong lòng **ví MiniPay**. 
+## 🚀 Core Solution
+**BusPay** is a Mini App designed to run directly within the **MiniPay wallet**.
 
-Ứng dụng dùng sức mạnh của mạng lưới Web3 để xử lý các khoản tiền lẻ (micro-transactions). Tiền vé xe (chỉ vài nghìn đồng/vài cent) sẽ chạy **thẳng** từ ví điện thoại của hành khách sang ví tổng của công ty xe bus ngay trong tích tắc mà không cần qua ngân hàng trung gian.
-
----
-
-## 🌟 Tính năng nổi bật (Key Features)
-
-### 🧑‍🤝‍🧑 1. Dành cho Hành khách (Tiện lợi & Thú vị)
-* ⚡ **Thanh toán 1 chạm (One-tap Payment):** Bấm "Mua vé" là tự động trừ tiền cUSD. Không cần tạo tài khoản, không cần nhớ mật khẩu vì đã được xác thực Web3 qua ví MiniPay.
-* 🎁 **Thẻ tích điểm thông minh (Loyalty Program):** Thanh tiến trình tự động nhảy số sau mỗi chuyến đi. Ví dụ: Đi đủ `100 chuyến` ➡️ Nhận ngay 1 voucher cà phê Starbucks.
-
-### 👨‍✈️ 2. Dành cho Tài xế & Công ty (Tự động hóa)
-* 📊 **Bảng điều khiển thời gian thực (Real-time Dashboard):** Màn hình tài xế tự động nhảy số vé đã bán và tổng doanh thu. Không cần xé vé giấy.
-* 💸 **Giải phóng sức lao động:** Hết ca làm, tài xế xách giỏ về nhà nghỉ ngơi. Không còn cảnh đếm tiền lẻ. Dòng tiền đã nằm sẵn ở ví tổng của công ty một cách minh bạch tuyệt đối.
+The application leverages the power of the Web3 network to handle micro-transactions. Bus ticket fares (just a few thousand VND/cents) will flow **directly** from the passenger's phone wallet to the bus company's main wallet instantly, without needing an intermediary bank.
 
 ---
 
-## 💎 Tại sao chọn Celo & MiniPay?
-1. 🟢 **Phí cực rẻ & Tốc độ chớp mắt:** Hoàn hảo cho các giao dịch mua vé nhỏ lẻ, điều mà app ngân hàng truyền thống thường bị nghẽn hoặc tốn phí cao.
-2. 🟡 **Dòng tiền Real-time:** Không đọng vốn ở máy POS hay cổng trung gian. Công ty nhận tiền ngay lập tức.
-3. 🌿 **Tiếp cận diện rộng:** Không cần tài khoản ngân hàng phức tạp, chỉ cần smartphone là có thể trả vé.
+## 🌟 Key Features
+
+### 🧑‍🤝‍🧑 1. For Passengers (Convenient & Engaging)
+*   ⚡ **One-tap Payment:** Tap "Buy Ticket" to automatically deduct cUSD. No account creation needed, no passwords to remember, as Web3 authentication is handled via MiniPay wallet.
+*   🎁 **Smart Loyalty Program:** A progress bar automatically updates after each trip. For example: Complete `100 rides` ➡️ Instantly receive a Starbucks coffee voucher.
+
+### 👨‍✈️ 2. For Drivers & Companies (Automation)
+*   📊 **Real-time Dashboard:** The driver's screen automatically updates with tickets sold and total revenue. No more paper tickets.
+*   💸 **Liberating Labor:** After their shift, drivers can go home and rest. No more counting small change. Funds are transparently and immediately available in the company's main wallet.
+
+---
+
+## 💎 Why Celo & MiniPay?
+1.  🟢 **Extremely Low Fees & Blazing Speed:** Perfect for small ticket purchases, a challenge where traditional banking apps often face congestion or high fees.
+2.  🟡 **Real-time Cash Flow:** No funds tied up in POS machines or intermediary gateways. Companies receive money instantly.
+3.  🌿 **Broad Accessibility:** No complex bank accounts needed; just a smartphone is enough to pay for tickets.
 
 ---
 *Built with 💚 for the Celo Ecosystem at #BUILDERSEA2026*
